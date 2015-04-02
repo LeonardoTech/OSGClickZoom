@@ -18,35 +18,32 @@
 #include <osg/Node>
 #include <osg/Geode>
 #include <osg/Geometry>
+#include <osg/ShapeDrawable>
 
 osg::ref_ptr<osg::Node> createQuad()
 {
-	osg::ref_ptr<osg::Geometry> geom = new osg::Geometry;
+	osg::ref_ptr<osg::TessellationHints> hints = new osg::TessellationHints;
+	hints->setDetailRatio(0.5);
+
+	auto box1 = new osg::Box(osg::Vec3(2.0, 0.0, 0.0), 1.0, 1.0, 1.0);
+	auto box2 = new osg::Box(osg::Vec3(0.0, 2.0, -2.0), 1.0, 1.0, 1.0);
+	auto box3 = new osg::Box(osg::Vec3(-2.0, 0.0, 0.0), 1.0, 1.0, 1.0);
+
+	osg::ref_ptr<osg::ShapeDrawable> shape1 = new osg::ShapeDrawable(box1, hints.get());
+	shape1->setColor(osg::Vec4(1, 0.2, 0.2, 1.0));
+	
+	osg::ref_ptr<osg::ShapeDrawable> shape2 = new osg::ShapeDrawable(box2, hints.get());
+	shape2->setColor(osg::Vec4(0.2, 1, 0.2, 1.0));
+
+	osg::ref_ptr<osg::ShapeDrawable> shape3 = new osg::ShapeDrawable(box3, hints.get());
+	shape3->setColor(osg::Vec4(0.2, 0.2, 1, 1.0));
+
 
 	osg::ref_ptr<osg::Vec3Array> v = new osg::Vec3Array;
-	geom->setVertexArray(v.get());
-	v->push_back(osg::Vec3(-1.f, 0.f, -1.f));
-	v->push_back(osg::Vec3(1.f, 0.f, -1.f));
-	v->push_back(osg::Vec3(1.f, 0.f, 1.f));
-	v->push_back(osg::Vec3(-1.f, 0.f, 1.f));
-
-	osg::ref_ptr<osg::Vec4Array> c = new osg::Vec4Array;
-	geom->setColorArray(c.get());
-	geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
-	c->push_back(osg::Vec4(1.f, 0.f, 0.f, 1.f));
-	c->push_back(osg::Vec4(0.f, 1.f, 0.f, 1.f));
-	c->push_back(osg::Vec4(0.f, 0.f, 1.f, 1.f));
-	c->push_back(osg::Vec4(1.f, 1.f, 1.f, 1.f));
-
-	osg::ref_ptr<osg::Vec3Array> n = new osg::Vec3Array;
-	geom->setNormalArray(n.get());
-	geom->setNormalBinding(osg::Geometry::BIND_OVERALL);
-	n->push_back(osg::Vec3(0.f, -1.f, 0.f));
-
-	geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS, 0, 4));
-
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-	geode->addDrawable(geom.get());
+	geode->addDrawable(shape1.get());
+	geode->addDrawable(shape2.get());
+	geode->addDrawable(shape3.get());
 	return geode.get();
 }
 
