@@ -73,6 +73,7 @@
     <IncludePath>$(OSG_ROOT)\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(OSG_ROOT)\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(OSG_ROOT)\bin;$(ExecutablePath)</ExecutablePath>
+    <SourcePath>$(OSG_ROOT)\source;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -192,10 +193,18 @@ Copy $(OSG_ROOT)\bin\zlib.dll $(TargetDir)</Command>
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraController.h" />
+    <ClInclude Include="ModelCameraManipulator.h" />
     <ClInclude Include="OSGEmpty.h" />
+    <ClInclude Include="PickHandler.h" />
+    <ClInclude Include="OSGCommon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelCameraManipulator.cpp" />
     <ClCompile Include="OSGEmpty.cpp" />
+    <ClCompile Include="PickHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

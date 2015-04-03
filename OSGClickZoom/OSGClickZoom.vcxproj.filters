@@ -21,9 +21,33 @@
     <ClInclude Include="OSGEmpty.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PickHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OSGCommon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelCameraManipulator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OSGEmpty.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PickHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelCameraManipulator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
