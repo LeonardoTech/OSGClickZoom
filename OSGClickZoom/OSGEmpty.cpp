@@ -1,7 +1,6 @@
 
 #include "OSGEmpty.h"
 
-
 osg::ref_ptr<osg::Node> createBoxes()
 {
 	osg::ref_ptr<osg::TessellationHints> hints = new osg::TessellationHints;

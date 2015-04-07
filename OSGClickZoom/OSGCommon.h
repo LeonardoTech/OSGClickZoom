@@ -29,3 +29,4 @@
 #include <osg/Camera>
 #include <osg/GraphicsContext>
 #include <osg/MatrixTransform>
+#include <osg/Multisample>

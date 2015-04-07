@@ -34,7 +34,11 @@ void main()
 	bool isFirstTimeZoom = true;
 
 	osgViewer::Viewer viewer;
-	viewer.setSceneData(createBoxes().get());
+	auto root = createBoxes();
+	//osg::ref_ptr<osg::Multisample> multisample = new osg::Multisample();
+	//root->getStateSet()->setAttribute(multisample);
+	//osg::DisplaySettings::instance()->setNumMultiSamples(2);
+	viewer.setSceneData(root.get());
 	viewer.addEventHandler(new PickHandler(&viewer, [&](osg::ShapeDrawable* shape, osg::Node* parent) {
 		shape->setColor(shape->getColor() * 3);
 		if (isFirstTimeZoom)
@@ -42,8 +46,13 @@ void main()
 			viewer.getCameraManipulator()->getHomePosition(position, center, up);
 			isFirstTimeZoom = false;
 		}
+		osg::DisplaySettings::instance()->setNumMultiSamples(16);
+		//viewer.getDisplaySettings()->setNumMultiSamples(2);
+
 		zoomTo(&viewer, parent);
 	}, [&]() {
+		if (isFirstTimeZoom)
+			return;
 		zoomToOriginal(&viewer, position, center, up);
 	}));
 	viewer.realize();
