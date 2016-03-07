@@ -1,7 +1,7 @@
 
 #include "OSGEmpty.h"
 
-osg::ref_ptr<osg::Node> createBoxes()
+osg::ref_ptr<osg::MatrixTransform> createBoxes()
 {
 	osg::ref_ptr<osg::TessellationHints> hints = new osg::TessellationHints;
 	hints->setDetailRatio(0.5);
@@ -47,7 +47,7 @@ osg::ref_ptr<osg::Node> createBoxes()
 	trans3->addChild(geode3);
 	trans3->setName("third");
 
-	osg::ref_ptr<osg::Group> group = new osg::Group;
+	osg::ref_ptr<osg::MatrixTransform> group = new osg::MatrixTransform;
 	group->addChild(trans1);
 	group->addChild(trans2);
 	group->addChild(trans3);

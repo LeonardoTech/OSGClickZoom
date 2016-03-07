@@ -2,7 +2,7 @@
 
 
 
-PickHandler::PickHandler(osgViewer::Viewer* viewer, std::function<void(osg::ShapeDrawable*, osg::Node*)> select_one, std::function<void()> select_empty):
+PickHandler::PickHandler(osgViewer::Viewer* viewer, std::function<void(osg::ShapeDrawable*, osg::Node*)> select_one, std::function<void()> select_empty) :
 hostViewer(viewer),
 lastPicked(nullptr),
 _select_one_call_back(select_one),
@@ -15,16 +15,32 @@ PickHandler::~PickHandler()
 {
 }
 
+void createBox(float x, float y, osgViewer::Viewer* viewer)
+{
+	auto camera = viewer->getCamera();
+	osg::Matrix MVPW(camera->getViewMatrix() *
+		camera->getProjectionMatrix() *
+		camera->getViewport()->computeWindowMatrix());
+
+	osg::Matrixd inverseMVPW = osg::Matrixd::inverse(MVPW);
+	auto center = osg::Vec3(x, y, 0) * inverseMVPW;
+	auto box = new osg::ShapeDrawable(new osg::Box(center, 1));
+	auto group = new osg::Geode();
+	group->addDrawable(box);
+	viewer->getSceneData()->asGroup()->addChild(group);
+}
+
 bool PickHandler::handle(const osgGA::GUIEventAdapter & ea, osgGA::GUIActionAdapter & aa)
 {
 	switch (ea.getEventType())
 	{
-	case(osgGA::GUIEventAdapter::PUSH) :
+	case osgGA::GUIEventAdapter::PUSH:
 		if (ea.getButton() == 1)
 		{
 			Pick(ea.getX(), ea.getY());
+			//createBox(ea.getX(), ea.getY(), static_cast<osgViewer::Viewer*>(&aa));
 		}
-									   return true;
+		return true;
 	default:
 		break;
 	}
